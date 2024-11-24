@@ -1,0 +1,130 @@
+# Spliwise API Requests
+
+## How to Use This File
+# 1. Start the Spring Boot application
+# 2. Use an HTTP client extension in your IDE (e.g., REST Client in VSCode)
+# 3. Replace YOUR_JWT_TOKEN_HERE with the actual JWT token from login
+# 4. Modify request bodies as needed to match your test scenarios
+
+## Authentication Flow
+# 1. Register a user
+# 2. Login to get JWT token
+# 3. Use the token in subsequent requests
+
+## Notes
+# - All requests require JWT authentication except registration and login
+# - Replace placeholder values (IDs, tokens) with actual values from your system
+# - Some endpoints might require specific data or prior actions
+
+### Authentication Endpoints
+
+# Register User
+POST http://localhost:8080/api/auth/register
+Content-Type: application/json
+
+{
+    "name": "John Doe",
+    "email": "john.doe@example.com",
+    "password": "password123"
+}
+
+### Login User
+POST http://localhost:8080/api/auth/login
+Content-Type: application/json
+
+{
+    "email": "john.doe@example.com",
+    "password": "password123"
+}
+
+### User Profile Endpoints
+
+# Get User Profile
+GET http://localhost:8080/api/users/profile
+Authorization: Bearer YOUR_JWT_TOKEN_HERE
+
+### Update User Profile
+PUT http://localhost:8080/api/users/profile
+Content-Type: application/json
+Authorization: Bearer YOUR_JWT_TOKEN_HERE
+
+{
+    "name": "John Updated",
+    "phoneNumber": "+1234567890",
+    "fcmToken": "sample_fcm_token"
+}
+
+### Group Endpoints
+
+### Create Group
+POST http://localhost:8080/api/groups
+Content-Type: application/json
+Authorization: Bearer YOUR_JWT_TOKEN_HERE
+
+{
+    "name": "Weekend Trip",
+    "description": "Vacation expense group",
+    "isPublic": true
+}
+
+### Get User Groups
+GET http://localhost:8080/api/groups
+Authorization: Bearer YOUR_JWT_TOKEN_HERE
+
+### Get Public Groups
+GET http://localhost:8080/api/groups/public
+Authorization: Bearer YOUR_JWT_TOKEN_HERE
+
+### Join Group by ID
+POST http://localhost:8080/api/groups/1/join
+Authorization: Bearer YOUR_JWT_TOKEN_HERE
+
+### Join Group by Invite Code
+POST http://localhost:8080/api/groups/join/INVITE_CODE_HERE
+Authorization: Bearer YOUR_JWT_TOKEN_HERE
+
+### Leave Group
+DELETE http://localhost:8080/api/groups/1/leave
+Authorization: Bearer YOUR_JWT_TOKEN_HERE
+
+### Expense Endpoints
+
+# Create Expense
+POST http://localhost:8080/api/expenses
+Content-Type: application/json
+Authorization: Bearer YOUR_JWT_TOKEN_HERE
+
+{
+    "amount": 100.50,
+    "description": "Dinner with friends",
+    "date": "2024-02-15",
+    "groupId": null,
+    "paidBy": "SELF",
+    "splitType": "EQUAL",
+    "participants": [
+        {
+            "userId": 1,
+            "amount": 50.25
+        },
+        {
+            "userId": 2,
+            "amount": 50.25
+        }
+    ]
+}
+
+### Get User Expenses
+GET http://localhost:8080/api/expenses
+Authorization: Bearer YOUR_JWT_TOKEN_HERE
+
+### Get Specific Expense
+GET http://localhost:8080/api/expenses/1
+Authorization: Bearer YOUR_JWT_TOKEN_HERE
+
+### Delete Expense
+DELETE http://localhost:8080/api/expenses/1
+Authorization: Bearer YOUR_JWT_TOKEN_HERE
+
+# Note: Replace YOUR_JWT_TOKEN_HERE with the actual JWT token received from login
+# Endpoints and request structures are based on the current implementation
+# Some details might need adjustment based on exact implementation
